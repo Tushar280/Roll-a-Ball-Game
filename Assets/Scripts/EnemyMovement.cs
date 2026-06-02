@@ -6,16 +6,20 @@ public class EnemyMovement : MonoBehaviour
     public Transform player;
     private NavMeshAgent navMeshAgent;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
+        // Prevents the enemy from trying to occupy the exact same space as the player
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.stoppingDistance = 1.2f; 
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-    if(player != null)
+        if(player != null && navMeshAgent != null)
         {
             navMeshAgent.SetDestination(player.position);
         }
